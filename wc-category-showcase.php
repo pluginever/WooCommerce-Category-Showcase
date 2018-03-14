@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Category Showcase
  * Plugin URI:  https://pluginever.com/wc-category-showcase
  * Description: WooCommerce extension to showcase categories in a nice slider blocks
- * Version:     1.0.0
+ * Version:     1.0.3
  * Author:      PluginEver
  * Author URI:  http://pluginever.com
  * License:     GPLv2+
@@ -44,7 +44,7 @@ class WC_Category_Showcase {
      * @since 1.0.0
      * @var  string
      */
-	public $version = '1.0.0';
+	public $version = '1.0.3';
 
 	/**
 	 * Initializes the class
@@ -122,6 +122,10 @@ class WC_Category_Showcase {
 	 * @return void
 	 */
 	function install() {
+        //save install date
+        if ( false == get_option( 'wccs_install_date' ) ) {
+            update_option( 'wccs_install_date', current_time( 'timestamp' ) );
+        }
 
 
 	}
@@ -168,11 +172,32 @@ class WC_Category_Showcase {
 		require PLVR_WCCS_INCLUDES .'/functions.php';
 		require PLVR_WCCS_INCLUDES .'/custom-cp.php';
 		require PLVR_WCCS_INCLUDES .'/class-shortcode.php';
-
-		if( is_admin() ){
-		    require  PLVR_WCCS_ADMIN_PATH . '/class-admin.php';
-        }
+		require PLVR_WCCS_INCLUDES .'/metabox/class-metabox.php';
+        require  PLVR_WCCS_ADMIN_PATH . '/class-admin.php';
+        require  PLVR_WCCS_ADMIN_PATH . '/class-metabox.php';
 	}
+
+    /**
+     * Do plugin upgrades
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
+    function plugin_upgrades() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        require_once PLVR_WCCS_INCLUDES . '/class-upgrades.php';
+
+        $upgrader = new Woo_Category_Slider_Pro_Upgrades();
+
+        if ( $upgrader->needs_update() ) {
+            $upgrader->perform_updates();
+        }
+    }
 
 	/**
 	 * Init Hooks
@@ -183,6 +208,7 @@ class WC_Category_Showcase {
 	 */
 	private function init_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets') );
+        add_action( 'admin_init', array( $this, 'plugin_upgrades' ) );
 	}
 
 	/**
@@ -194,6 +220,7 @@ class WC_Category_Showcase {
 	 */
 	private function instantiate() {
         new \Pluginever\WCCS\Shortcode();
+        new \Pluginever\WCCCS\Metabox();
 	}
 
 	/**

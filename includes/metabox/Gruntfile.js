@@ -16,27 +16,6 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
-
-        concat: {
-            options: {
-                stripBanners: true,
-                banner: bannerTemplate
-            },
-            wc_category_showcase: {
-                src: [
-                    'assets/js/vendor/*.js',
-                    'assets/js/src/wc-category-showcase.js',
-                ],
-                dest: 'assets/js/wc-category-showcase.js'
-            },
-            wc_category_showcase_admin: {
-                src: [
-                    'admin/assets/js/vendor/*.js',
-                    'admin/assets/js/src/wc-category-showcase-admin.js',
-                ],
-                dest: 'admin/assets/js/wc-category-showcase-admin.js'
-            }
-        },
         // jshint
         jshint: {
             options: {
@@ -50,26 +29,35 @@ module.exports = function (grunt) {
 
         uglify: {
             all: {
-                files: {
-                    'assets/js/wc-category-showcase.min.js': ['assets/js/wc-category-showcase.js'],
-                    'admin/assets/js/wc-category-showcase.min.js': ['admin/assets/js/wc-category-showcase.js']
-                },
-                options: {
-                    banner: compactBannerTemplate,
-                    mangle: false
-                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'assets/js/src/',
+                        src: ['**/*.js'],
+                        dest: 'assets/js/',
+                        ext: '.js'
+                    }
+                ]
+            },
+            options: {
+                banner: compactBannerTemplate,
+                mangle: false,
                 compress: {
-                    drop_console: true
+                    drop_console: false
                 }
             }
         },
 
-        sass: {
-            all: {
-                files: {
-                    'assets/css/wc-category-showcase.css': 'assets/css/sass/wc-category-showcase.scss',
-                    //'admin/assets/css/wc-category-showcase-admin.css': 'admin/assets/css/sass/wc-category-showcase-admin.scss',
-                }
+        sass: { // Task
+            dist: {
+                files: [{
+                    // Set to true for recursive search
+                    expand: true,
+                    cwd: 'assets/css/sass/',
+                    src: ['**/*.scss'],
+                    dest: 'assets/css/',
+                    ext: '.css'
+                }]
             }
         },
 
@@ -80,10 +68,8 @@ module.exports = function (grunt) {
             },
             minify: {
                 expand: true,
-
                 cwd: 'assets/css/',
-                src: ['wc-category-showcase.css'],
-
+                src: '*.css',
                 dest: 'assets/css/',
                 ext: '.min.css'
             }
@@ -108,12 +94,8 @@ module.exports = function (grunt) {
         },
 
         watch: {
-            options: {
-                livereload: true,
-            },
-
             sass: {
-                files: ['assets/css/sass/*.scss','admin/assets/css/sass/*.scss'],
+                files: ['assets/css/sass/*.scss'],
                 tasks: ['sass', 'cssmin'],
                 options: {
                     debounceDelay: 500
@@ -121,8 +103,8 @@ module.exports = function (grunt) {
             },
 
             scripts: {
-                files: ['assets/js/src/**/*.js', 'assets/js/vendor/**/*.js', 'admin/assets/js/src/*.js'],
-                tasks: ['jshint', 'concat', 'uglify'],
+                files: ['assets/js/src/**/*.js'],
+                tasks: ['jshint', 'uglify'],
                 options: {
                     debounceDelay: 500
                 }
@@ -137,28 +119,12 @@ module.exports = function (grunt) {
             application: {
                 dir: [
                     '**/*.php',
-                    '!*.scss',
                     '!**/node_modules/**'
                 ]
             },
             options: {
                 bin: '~/phpcs/scripts/phpcs',
                 standard: 'WordPress'
-            }
-        },
-        // Generate POT files.
-        makepot: {
-            target: {
-                options: {
-                    exclude: ['build/.*', 'node_modules/*', 'assets/*'],
-                    domainPath: '/i18n/languages/', // Where to save the POT file.
-                    potFilename: 'wc-category-showcase.pot', // Name of the POT file.
-                    type: 'wp-plugin', // Type of project (wp-plugin or wp-theme).
-                    potHeaders: {
-                        'report-msgid-bugs-to': 'http://pluginever.com/support/',
-                        'language-team': 'LANGUAGE <support@pluginever.com>'
-                    }
-                }
             }
         },
         // Clean up build directory
@@ -170,17 +136,9 @@ module.exports = function (grunt) {
                 src: [
                     '**',
                     '!node_modules/**',
-                    '!**/js/src/**',
-                    '!**/css/src/**',
-                    '!**/js/vendor/**',
-                    '!**/css/vendor/**',
-                    '!**/images/src/**',
-                    '!**/sass/**',
-                    '!build/**',
-                    '!**/*.md',
-                    '!**/*.map',
-                    '!**/*.sh',
+                    '!.codekit-cache/**',
                     '!.idea/**',
+                    '!build/**',
                     '!bin/**',
                     '!.git/**',
                     '!Gruntfile.js',
@@ -188,6 +146,7 @@ module.exports = function (grunt) {
                     '!composer.json',
                     '!composer.lock',
                     '!debug.log',
+                    '!phpunit.xml',
                     '!.gitignore',
                     '!.gitmodules',
                     '!npm-debug.log',
@@ -196,60 +155,38 @@ module.exports = function (grunt) {
                     '!config.codekit',
                     '!nbproject/*',
                     '!tests/**',
+                    '!README.md',
+                    '!CONTRIBUTING.md',
+                    '!**/*~',
                     '!.csscomb.json',
                     '!.editorconfig',
                     '!.jshintrc',
-                    '!.tmp'
+                    '!.tmp',
+                    '!assets/src/**',
                 ],
                 dest: 'build/'
             }
-        },
-        compress: {
-            main: {
-                options: {
-                    mode: 'zip',
-                    archive: './build/woocommerce-category-showcase-' + pkg.version + '.zip'
-                },
-                expand: true,
-                cwd: 'build/',
-                src: ['**/*'],
-                dest: 'wc-category-showcase'
-            }
-        },
-        server: {
-            options: {
-                message: 'Server is ready!'
-            }
         }
-
 
     });
 
 // Load other tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    // grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-wp-i18n');
-    grunt.loadNpmTasks('grunt-contrib-compress');
-
     grunt.loadNpmTasks('grunt-contrib-sass');
-
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.loadNpmTasks('grunt-phpcs');
 
     // Default task.
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'sass', 'cssmin', 'imagemin', 'notify:server']);
-
-
-    grunt.registerTask('release', ['makepot']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'cssmin', 'imagemin', 'notify:server']);
     grunt.registerTask('build', ['clean', 'copy']);
-    grunt.registerTask('zip', ['compress']);
     grunt.util.linefeed = '\n';
 };

@@ -15,16 +15,23 @@ window.WC_Category_Showcase = (function(window, document, $, undefined){
 	var app = {};
 
 	app.init = function() {
-        $('.woo-cs-slider').slick({
+	    var slider = $('.woo-cs-slider');
+        slider.on('init', function(){
+            $(this).closest('.woo-cs').addClass('initialized');
+        });
+
+        slider.slick({
             autoplay: true,
             dots: false,
             speed: 500
         });
 
-    // $(window).load(function() {
+
+
+    $(window).load(function() {
     //     var stHeight = $('.slick-track').height();
     //     $('.slick-slide').css('height',stHeight + 'px' );
-    // });
+    });
 
 	};
 
