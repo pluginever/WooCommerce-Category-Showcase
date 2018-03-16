@@ -10,6 +10,23 @@
 @import "slick/slick";
 @import "slick/slick-theme";
 
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
+    src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .woo-cs {
     max-width: 1170px;
     margin: 0 auto;
@@ -83,7 +100,7 @@
             transition: 0.3s all;
         }
 
-        .woo-cs-cat-button:hover{
+        .woo-cs-cat-button:hover {
             text-decoration: none;
             background: #fff;
             color: rgba(150, 88, 138, 0.9);
@@ -120,7 +137,7 @@
             border: 1px solid transparent;
             transition: all 0.3s;
             position: relative;
-            .woo-cs-slide{
+            .woo-cs-slide {
                 //position: relative;
                 position: absolute;
                 top: 0;
@@ -185,6 +202,30 @@
         }
     }
 
+    .slick-prev, .slick-next{
+        font-family: "FontAwesome";
+        color: #fff;
+        transition: 0.3s all;
+        height: 30px;
+        width: 30px;
+        text-align: center;
+        &:hover{
+            background: rgba(150, 88, 138, 0.9);
+        }
+        &:active{
+            box-shadow: none;
+        }
+    }
+
+    .slick-next:before{
+        font-family: "FontAwesome";
+        content: "\f105";
+    }
+    .slick-prev:before{
+        font-family: "FontAwesome";
+        content: "\f104";
+    }
+
     .woo-cs-left-block {
         .woo-cs-slide-img-container {
             display: block;
@@ -193,7 +234,7 @@
             border: 2px solid transparent;
         }
 
-        img{
+        img {
             width: 100%;
             height: auto;
         }
@@ -229,7 +270,7 @@
             border-top: 1px solid transparent;
             border-left: 1px solid transparent;
             //overflow: hidden;
-            img{
+            img {
                 width: 100%;
                 height: auto;
             }
@@ -265,19 +306,21 @@
     }
 
 }
+
 @media only screen and (min-width: 760px) {
-    .woo-cs-inner{
+    .woo-cs-inner {
         min-height: 500px;
     }
-    .woo-cs-box{
+    .woo-cs-box {
         min-height: 248px;
     }
 }
+
 @media only screen and (max-width: 760px) {
-    .woo-cs{
+    .woo-cs {
 
     }
-    .woo-cs-box{
+    .woo-cs-box {
         min-height: 248px;
     }
 }

@@ -101,3 +101,9 @@ function wccs_get_term_html() {
 }
 
 add_action( 'wp_ajax_wccs_get_term_html', 'wccs_get_term_html' );
+
+
+function wc_category_showcase_is_pro_active(){
+    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+    return is_plugin_active('wc-category-showcase-pro/wc-category-showcase-pro.php');
+}

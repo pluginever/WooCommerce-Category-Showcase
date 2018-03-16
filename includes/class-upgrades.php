@@ -13,7 +13,7 @@ class WCCS_Upgrades {
      * @var array
      */
     private static $upgrades = array(
-         '1.0.3'    => 'updates/update-1.0.3.php',
+        '1.0.3' => 'updates/update-1.0.3.php',
     );
 
     /**
@@ -22,7 +22,7 @@ class WCCS_Upgrades {
      * @return string
      */
     public function get_version() {
-        return get_option( 'wccs_version' );
+        return get_option( 'wccs_version', '1.0.0' );
     }
 
     /**
@@ -32,12 +32,7 @@ class WCCS_Upgrades {
      */
     public function needs_update() {
 
-        // may be it's the first install
-        if ( ! $this->get_version() ) {
-            return false;
-        }
-
-        if ( version_compare( $this->get_version(), 'WCSP_VERSION', '<' ) ) {
+        if ( version_compare( $this->get_version(), PLVR_WCCS_VERSION, '<' ) ) {
             return true;
         }
 

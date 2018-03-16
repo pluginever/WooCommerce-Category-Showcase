@@ -8,12 +8,9 @@ class Metabox {
         add_action( 'admin_init', [ $this, 'init_featured_cats_settings_metabox' ] );
         add_action( 'admin_init', [ $this, 'init_additional_cats_settings_metabox' ] );
 
-//        add_action( 'admin_init', [ $this, 'init_display_settings_metabox' ] );
-//        add_action( 'admin_init', [ $this, 'init_slider_settings_metabox' ] );
-//        add_action( 'add_meta_boxes', [ $this, 'init_shortcode_metabox' ], 999 );
-//        if ( ! wc_category_showcase_is_pro_active() ) {
-//            add_action( 'add_meta_boxes', [ $this, 'init_promotion_metabox' ] );
-//        }
+        if ( ! wc_category_showcase_is_pro_active() ) {
+            add_action( 'add_meta_boxes', [ $this, 'init_promotion_metabox' ] );
+        }
     }
 
     /**
@@ -86,7 +83,35 @@ class Metabox {
         $metabox->init( apply_filters( 'wccs_addtional_metabox_fields', $config ) );
     }
 
+    public function init_promotion_metabox() {
+        add_meta_box( 'wccs_showcase-promotion', __( 'What More?', 'wccsp' ), [
+            $this,
+            'promotion_metabox_callback'
+        ], 'wccs_showcase', 'side' );
+    }
 
+    public function promotion_metabox_callback(){
+        ?>
+        <img src="<?php echo PLVR_WCCS_ASSETS . '/images/promotion.png'; ?>" alt="WOO Category Showcase Pro"
+             style="width: 100%;margin-bottom: 10px;">
+        <h4 style="margin: 0;padding: 0;border-bottom: 1px solid #333;"><?php _e( 'Pro Features', 'wccsp' ); ?></h4>
+        <ul style="padding-left: 25px;list-style: disc;">
+            <li>Custom featured category image</li>
+            <li>Custom additional category image</li>
+            <li>Custom category title</li>
+            <li>Category title show hide</li>
+            <li>Category description show hide</li>
+            <li>Category button show hide</li>
+            <li>Category button custom text</li>
+            <li>Custom content color</li>
+            <li>Custom content background color</li>
+            <li>Custom image column</li>
+            <li>And Many More</li>
+        </ul>
+        <a href="http://bit.ly/woocommerce-category-showcase-pro"
+           target="_blank" style="text-align: center;font-weight: bold;">Upgrade To PRO Now</a>
+        <?php
+    }
     protected function get_wc_category_list() {
         $categories = wccs_get_wc_categories( [ 'number' => 1000 ] );
         $list       = array();

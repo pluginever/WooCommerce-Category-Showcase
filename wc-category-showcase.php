@@ -175,7 +175,9 @@ class WC_Category_Showcase {
 		require PLVR_WCCS_INCLUDES .'/metabox/class-metabox.php';
         require  PLVR_WCCS_ADMIN_PATH . '/class-admin.php';
         require  PLVR_WCCS_ADMIN_PATH . '/class-metabox.php';
-	}
+        require PLVR_WCCS_INCLUDES .'/class-insights.php';
+        require PLVR_WCCS_INCLUDES .'/class-tracker.php';
+    }
 
     /**
      * Do plugin upgrades
@@ -192,7 +194,7 @@ class WC_Category_Showcase {
 
         require_once PLVR_WCCS_INCLUDES . '/class-upgrades.php';
 
-        $upgrader = new Woo_Category_Slider_Pro_Upgrades();
+        $upgrader = new WCCS_Upgrades();
 
         if ( $upgrader->needs_update() ) {
             $upgrader->perform_updates();
@@ -209,7 +211,9 @@ class WC_Category_Showcase {
 	private function init_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets') );
         add_action( 'admin_init', array( $this, 'plugin_upgrades' ) );
-	}
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'plugin_action_links' ) );
+
+    }
 
 	/**
 	 * Instantiate classes
@@ -221,6 +225,7 @@ class WC_Category_Showcase {
 	private function instantiate() {
         new \Pluginever\WCCS\Shortcode();
         new \Pluginever\WCCCS\Metabox();
+        new \Pluginever\WCCS\Tracker();
 	}
 
 	/**
@@ -239,6 +244,24 @@ class WC_Category_Showcase {
 		wp_enqueue_script('wc-category-showcase');
 	}
 
+
+
+    /**
+     * @param $links
+     *
+     * @return array
+     */
+    public static function plugin_action_links( $links ) {
+        $doc_link = 'https://www.pluginever.com/docs/woocommerce-category-showcase/';
+        $action_links = [];
+        if ( ! wc_category_showcase_is_pro_active() ) {
+            $action_links['Upgrade'] = '<a target="_blank" href="https://www.pluginever.com/plugins/woocommerce-category-showcase-pro/" title="' . esc_attr( __( 'Upgrade To Pro', 'wccs' ) ) . '" style="color:red;font-weight:bold;">' . __( 'Upgrade To Pro', 'woocatlider' ) . '</a>';
+        }
+        $action_links['Documentation'] = '<a target="_blank" href="' . $doc_link . '" title="' . esc_attr( __( 'View Plugin\'s Documentation', 'wccs' ) ) . '">' . __( 'Documentation', 'wccs' ) . '</a>';
+
+
+        return array_merge( $action_links, $links );
+    }
 
 }
 

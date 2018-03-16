@@ -196,6 +196,19 @@ class Shortcode {
             #wccs-slider-<?php echo $post_id; ?> .woo-cs-heading{
                 border-top: 3px solid <?php echo $params['wccs_featured_content_bg'];?>;
             }
+            #wccs-slider-<?php echo $post_id; ?> .woo-cs-heading{
+                border-top: 3px solid <?php echo $params['wccs_featured_content_bg'];?>;
+            }
+            #wccs-slider-<?php echo $post_id; ?> .slick-prev,
+            #wccs-slider-<?php echo $post_id; ?> .slick-prev:before,
+            #wccs-slider-<?php echo $post_id; ?> .slick-next,
+            #wccs-slider-<?php echo $post_id; ?> .slick-next:before{
+                color: <?php echo $params['wccs_featured_content_color'];?>;
+            }
+            #wccs-slider-<?php echo $post_id; ?> .slick-prev:hover,
+            #wccs-slider-<?php echo $post_id; ?> .slick-next:hover{
+                background: <?php echo $params['wccs_featured_content_bg'];?>;
+            }
         </style>
 
         <?php
