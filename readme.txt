@@ -3,18 +3,37 @@ Contributors:      manikmist09, pluginever
 Donate link:
 Tags: woocommerce, woocommerce Category, woocommerce Category Slider, WooCommerce Category Showcase, Slider, product category carousel, product category slider, woocommerce category slider plugin free, product category carousel, product category rotators, product category slider, products category slider, responsive product category slider, woo category slider, woocommerce, woocommerce product category carousel, WooCommerce Products, woocommerce products category slider, woocommerce slider, carousel, woocommerce image slider, woocommerce responsive slider, woocommerce advance slider, best woocommerce product slider, easy woocommerce product slider, woocommerce slider free, woocommerce slider plugin, slider for woocommerce, product slider carousel for woocommerce, woocommerce product category slider and carousel plugin
 Requires at least: 3.6.0
-Tested up to:      4.8.2
+Tested up to:      4.9.4
 Requires PHP:      5.6
-Stable tag:        1.0.0
+Stable tag:        trunk
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
 WooCommerce extension to showcase categories in a nice slider block.
 
 == Description ==
-WooCommerce Category Showcase is a unique plugin for your WooCommerce store to showcase your product categories and subcategories in nice blocks and slider.
+WooCommerce Category Showcase plugin by PluginEver provides you the opportunity of showing WooCommerce product categories in a slider & in a nice blocks. You can show your product categories in a modern looking and descriptive slider that show details of your category.
+== VIDEO DEMO ==
+http://www.youtube.com/watch?v=TFjWdEETbAs
 
->[DEMO](http://www.demo.pluginever.com/woocommerce-category-showcase-demo/)   |  [Support Forum](https://www.pluginever.com/support/) |
+>[DEMO](http://demo.pluginever.com/woocommerce-category-showcase-demo/) |  [Get The PRO Version](https://www.pluginever.com/plugins/woo-category-showcase-pro/)  |  [Support](https://www.pluginever.com/support/)  |  [Documentation ](https://www.pluginever.com/docs/woo-category-showcase-pro/)
+
+==WHY WOULD YOU NEED WOOCOMMERCE CATEGORY SHOWCASE ==
+When you can display your products and their categories in a proper way to your customers, it attracts them the most. This means you are effectively showing your product categories in a professional looking slider and blocks. Thus, your users loves how they look and also understands what you are offering at a glance. This makes your WooCommerce store popular and you can sell more quickly.
+
+==HOW WOOCOMMERCE CATEGORY SHOWCASE HELPS==
+Using this awesome plugin, you can manage which WooCommerce product categories you want to show. It has the options to all product categories or any specifically selected ones.
+
+The plugin will show the selected categories exactly in the order that you have chosen for your WooCommerce Category Slider.
+
+The Woo Category Slider has a built-in and also very easy to use shortcode builder. There is no coding involved and you can add WooCommerce Category Slider with memorising anything at using, just using simple shortcodes.
+
+Showing WooCommerce product categories in a slider help your visitors to find the category they are looking for without struggling and looking all over the WooCommerce store.This effectively expands your sells.
+
+You can select either all WooCommerce categories or any custom selected categories to appear in the WooCommerce category slider.
+WooCommerce category slider supports the selection of any categories as well as subcategories and to order those in all possible ways.
+
+Woo Category slider has a built-in very easy to use and user-friendly shortcode builder. So, You don’t need to memorize anything.
 
 WooCommerce Category Showcase supports two types of category selections.
 
@@ -22,7 +41,7 @@ WooCommerce Category Showcase supports two types of category selections.
 * Additional Categories
 
 Featured categories will be shown inside a nice and fancy slider with category name & description where additional categories will be in a nice six blocks with
-categories names.
+categories names & description.
 
 WooCommerce Category Showcase has two parts one is WooCommerce category slider and another part is WooCommerce category blocks. WooCommerce category slider is used for showing featured categories on the left side of the showcase in a nice box. WooCommerce category blocks support additional categories, you can add maximum 6 blocks as additional categories. Where WooCommerce category slider part supports a unlimited number of categories.
 
@@ -40,10 +59,22 @@ WooCommerce Category Showcase has built-in shortcode builder with a nice easy in
 * Show Category Name
 * Show Category Description
 * Category Title
-* Enable/Disable Title
+* Block Title
 * Light Weight
 * Fast Loading
 * Responsive
+
+### PRO Features
+* Custom image column size
+* Custom image
+* Custom title
+* Custom title color
+* Custom content background color
+* Custom button text
+* Show/Hide button
+* Show/Hide description
+* Show/Hide category name
+* And Many More
 
 ### You may also like our other plugins
 >[Woo Category Slider By PluginEver](https://wordpress.org/plugins/woo-category-slider-by-pluginever/)  |
@@ -105,6 +136,12 @@ Place the snippet where you want. Change the id with the appropriate one.
 4. Created All WooCommerce category showcase
 
 == Changelog ==
+= 1.0.3=
+* WooCommerce compatibility fix
+* Improved UI
+* Fix Loading issue
+* Fix height issue
+
 = 1.0.1 =
 * Fix dynamic image and description
 * Feature Default category image
